@@ -12,7 +12,7 @@ fn test_request_mint_with_bucket() {
     // dir is different in Debug mode
     let root_dir = env::current_dir().ok().unwrap().ends_with("dot-random-examples");
     let dir_component = if root_dir { "./submodules/dot-random/component" } else { "../submodules/dot-random/component" };
-    let dir_example = if root_dir { "./basic" } else { "../basic" };
+    let dir_example = if root_dir { "./bucket_transfer_auth" } else { "../bucket_transfer_auth" };
     // Arrange
     let mut test_runner = TestRunnerBuilder::new().build();
 

@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "basic",
+    "bucket_transfer_auth",
     "badge_auth",
 ]
 

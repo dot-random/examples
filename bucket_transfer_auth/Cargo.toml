@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "basic"
+name = "bucket_transfer_auth"
 version = "0.1.0"
 
 
@@ -11,7 +11,7 @@ random = { path = "../submodules/dot-random/random"}
 
 
 [dev-dependencies]
-basic = { path = ".", features = ["test"] }
+bucket_transfer_auth = { path = ".", features = ["test"] }
 component = { path = "../submodules/dot-random/component" }
 transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
 radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
@@ -24,4 +24,4 @@ test = []
 
 [lib]
 crate-type = ["cdylib", "lib"]
-path = "src/basic.rs"
+path = "src/bucket_transfer_auth.rs"
