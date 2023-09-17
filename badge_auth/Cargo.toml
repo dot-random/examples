@@ -1,0 +1,27 @@
+[package]
+edition = "2021"
+name = "badge_auth"
+version = "0.1.0"
+
+
+[dependencies]
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+random = { path = "../submodules/dot-random/random"}
+
+
+[dev-dependencies]
+badge_auth = { path = ".", features = ["test"] }
+component = { path = "../submodules/dot-random/component" }
+transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+
+[features]
+default = []
+test = []
+
+[lib]
+crate-type = ["cdylib", "lib"]
+path = "src/badge_auth.rs"
