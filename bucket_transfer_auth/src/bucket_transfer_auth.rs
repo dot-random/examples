@@ -6,7 +6,8 @@ mod example {
     extern_blueprint!(
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         MyRandom as RandomComponent {
-            fn request_random(&self, address: ComponentAddress, method_name: String, key: u32, badge: FungibleBucket, size: u8) -> u32;
+            fn request_random(&self, address: ComponentAddress, method_name: String,
+                on_error: String, key: u32, badge: FungibleBucket) -> u32;
         }
     );
     const RNG: Global<RandomComponent> = global_component!(
@@ -57,22 +58,19 @@ mod example {
             let address = Runtime::global_component().address();
             // The method on your component to call back
             let method_name = "do_mint".into();
+            // The method on yor component that will be called if do_mint() panics
+            let on_error = "abort_mint".into();
             // A key that will be sent back to you with the callback
             let key = nft_id.into();
             // A token that will be sent back to you with the callback
             // You should check that the token is present before minting
             let badge = self.badge_vault.take(Decimal::ONE);
-            // How many random bytes you need during the execution of your callback ("do_mint").
-            // Getting a random u32 costs 4 bytes, u16 - 2 bytes, u8 or bool - 1 byte.
-            // You should request as few bytes as possible, as long as it covers your needs (otherwise it will panic).
-            // Should be in range [1, 32].
-            let size: u8 = 4u8;
-            return RNG.request_random(address, method_name, key, badge.as_fungible(), size);
+            return RNG.request_random(address, method_name, on_error, key, badge.as_fungible());
         }
 
         /// Executed by our RandomWatcher off-ledger service (through [RandomComponent]).
         /// "nft_id" here is whatever was sent to RNG.request_random() above.
-        pub fn do_mint(&mut self, nft_id: u32, badge: FungibleBucket, random_seed: Vec<u8>) -> u32 {
+        pub fn do_mint(&mut self, nft_id: u32, badge: FungibleBucket, random_seed: Vec<u8>) {
             debug!("EXEC:ExampleCaller::do_mint({:?}, {:?}, {:?})\n", nft_id, badge, random_seed);
             if badge.amount() == Decimal::ONE {
                 let bucket = badge.into();
@@ -83,11 +81,11 @@ mod example {
                 let random_traits = random.next_int::<u32>();
 
                 self.nfts.insert(nft_id as u16, random_traits);
-                return nft_id;
-            } else {
-                return 0;
             }
+        }
 
+        pub fn abort_mint(&mut self, nft_id: u32, badge: FungibleBucket) {
+            // revert what you did in `request_mint()` here
         }
     }
 }
