@@ -13,6 +13,7 @@ random = { path = "../submodules/dot-random/random"}
 [dev-dependencies]
 badge_auth = { path = ".", features = ["test"] }
 component = { path = "../submodules/dot-random/component" }
+dot-random-test-utils = { path = "../submodules/dot-random/test-utils", package = "test-utils" }
 transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
 radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
 scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }

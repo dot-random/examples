@@ -4,16 +4,16 @@ use random::Random;
 #[blueprint]
 mod example {
     extern_blueprint!(
-        "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqqyqszqgqqqqqqqgpwgs6ac",
+        "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         MyRandom as RandomComponent {
             fn request_random2(&self, address: ComponentAddress, method_name: String, key: u32, size: u8) -> u32;
         }
     );
     const RNG: Global<RandomComponent> = global_component!(
         RandomComponent,
-        "component_sim1cp0dl85e263r7u08w3etp2afm2keyu3ugc2tpgv92sfkmjrjjqdsjc"
+        "component_sim1cqqqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnf7v0gx"
     );
-    const BADGE_RESOURCE: ResourceManager = resource_manager!("resource_sim1tkgg2dgzx6kulcyzf04f7vxakhaemwel3jqqk98m5wpqkact85rl80");
+    const BADGE_RESOURCE: ResourceManager = resource_manager!("resource_sim1t5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycn38dnjs");
 
     enable_method_auth! {
         roles {
