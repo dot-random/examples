@@ -9,16 +9,15 @@ use dot_random_test_utils::{random_component_deploy, random_component_process};
 fn test_request_mint_with_bucket() {
     // dir is different in Debug mode
     let root_dir = env::current_dir().ok().unwrap().ends_with("dot-random-examples");
-    let dir_component = if root_dir { "./submodules/dot-random/component" } else { "../submodules/dot-random/component" };
     let dir_example = if root_dir { "./bucket_transfer_auth" } else { "../bucket_transfer_auth" };
     // Arrange
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let (_, rc_component, _) = random_component_deploy(&mut test_runner, dir_component);
+    let (_, rc_component, _) = random_component_deploy(&mut test_runner, "20d7f9d");
 
     // Deploy ExampleCaller
-    let package_address2 = test_runner.compile_and_publish_retain_blueprints(
+    let package_address2 = test_runner.publish_retain_blueprints(
         dir_example,
         |blueprint, _| blueprint.eq("ExampleCaller"),
     );

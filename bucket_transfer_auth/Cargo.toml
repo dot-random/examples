@@ -5,19 +5,19 @@ version = "0.1.0"
 
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
-random = { path = "../submodules/dot-random/random"}
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
+random = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "random" }
 
 
 [dev-dependencies]
 bucket_transfer_auth = { path = ".", features = ["test"] }
-component = { path = "../submodules/dot-random/component" }
-dot-random-test-utils = { path = "../submodules/dot-random/test-utils", package = "test-utils"}
-transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
-scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
-scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v0.12.1" }
+component = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "component" }
+dot-random-test-utils = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "test-utils" }
+transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
+scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
+scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
 
 [features]
 default = []

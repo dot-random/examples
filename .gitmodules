@@ -1,4 +1,0 @@
-[submodule "dot-random"]
-    path = submodules/dot-random
-    url = https://github.com/Mleekko/dot-random
-    branch = master
