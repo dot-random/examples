@@ -7,13 +7,13 @@ version = "0.1.0"
 [dependencies]
 sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
 scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
-random = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "random" }
+random = { git = "https://github.com/Mleekko/dot-random", rev = "b8bedff", package = "random" }
 
 
 [dev-dependencies]
 badge_auth = { path = ".", features = ["test"] }
-component = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "component" }
-dot-random-test-utils = { git = "https://github.com/Mleekko/dot-random", rev = "20d7f9d", package = "test-utils" }
+component = { git = "https://github.com/Mleekko/dot-random", rev = "b8bedff", package = "component" }
+dot-random-test-utils = { git = "https://github.com/Mleekko/dot-random", rev = "b8bedff", package = "test-utils" }
 transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
 radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
 scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
