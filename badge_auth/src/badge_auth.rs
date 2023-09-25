@@ -2,6 +2,7 @@ use scrypto::prelude::*;
 use random::Random;
 
 #[blueprint]
+#[types(u16, u32)]
 mod example {
     extern_blueprint!(
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
@@ -39,7 +40,7 @@ mod example {
             let badge_address: ResourceAddress = BADGE_RESOURCE.address();
             return Self {
                 next_id: 1,
-                nfts: KeyValueStore::new(),
+                nfts: KeyValueStore::new_with_registered_type(),
             }
                 .instantiate()
                 .prepare_to_globalize(OwnerRole::None)

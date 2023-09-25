@@ -2,6 +2,7 @@ use scrypto::prelude::*;
 use random::Random;
 
 #[blueprint]
+#[types(u16, u32)]
 mod example {
     extern_blueprint!(
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
@@ -37,7 +38,7 @@ mod example {
                 .into();
             return Self {
                 next_id: 1,
-                nfts: KeyValueStore::new(),
+                nfts: KeyValueStore::new_with_registered_type(),
                 badge_vault: Vault::with_bucket(nft_minter_badge),
             }
                 .instantiate()
