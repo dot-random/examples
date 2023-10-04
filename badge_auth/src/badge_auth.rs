@@ -6,7 +6,9 @@ use random::Random;
 mod example {
     extern_blueprint!(
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
-        MyRandom as RandomComponent {
+        RandomComponent {
+            fn request_random(&self, address: ComponentAddress,
+                method_name: String, on_error: String, key: u32, badge: FungibleBucket) -> u32;
             fn request_random2(&self, address: ComponentAddress, method_name: String, on_error: String, key: u32) -> u32;
         }
     );

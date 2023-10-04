@@ -12,7 +12,6 @@ random = { git = "https://github.com/dot-random/dot-random", rev = "b8bedff", pa
 
 [dev-dependencies]
 bucket_transfer_auth = { path = ".", features = ["test"] }
-component = { git = "https://github.com/dot-random/dot-random", rev = "b8bedff", package = "component" }
 dot-random-test-utils = { git = "https://github.com/dot-random/dot-random", rev = "b8bedff", package = "test-utils" }
 transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
 radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.0" }
