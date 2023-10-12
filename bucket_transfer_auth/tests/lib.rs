@@ -14,7 +14,7 @@ fn test_request_mint_with_bucket() {
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let (_, rc_component, _) = random_component_deploy(&mut test_runner, "b8bedff");
+    let (_, rc_component, _) = random_component_deploy(&mut test_runner, "6945f27");
 
     // Deploy ExampleCaller
     let package_address2 = test_runner.publish_retain_blueprints(

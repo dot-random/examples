@@ -5,6 +5,7 @@ use random::Random;
 #[types(u16, u32)]
 mod example {
     extern_blueprint!(
+        // "package_tdx_2_1pk56nm7yuy3dcjx6awtj72ykx5grte0vukd0j8vl8algxnphwe8yz7",
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         RandomComponent {
             fn request_random(&self, address: ComponentAddress,
@@ -14,9 +15,13 @@ mod example {
     );
     const RNG: Global<RandomComponent> = global_component!(
         RandomComponent,
+        // "component_tdx_2_1czgsfkdazhyhrs5238wh5phfk80ky8xzqvjwf7cpxwu76efl9jehcx"
         "component_sim1cqqqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnf7v0gx"
     );
-    const BADGE_RESOURCE: ResourceManager = resource_manager!("resource_sim1t5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycn38dnjs");
+    const BADGE_RESOURCE: ResourceManager = resource_manager!(
+        // "resource_tdx_2_1t4hgu0a4tav5ydekqz3zd47r6w8kykcg9u4gsmrwnh5k8ef8uh625f"
+        "resource_sim1t5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycn38dnjs"
+    );
 
     enable_method_auth! {
         roles {
@@ -77,7 +82,7 @@ mod example {
         pub fn do_mint(&mut self, nft_id: u32, random_seed: Vec<u8>) {
             debug!("EXEC:ExampleCallerBadgeAuth::do_mint({:?}, {:?})\n", nft_id, random_seed);
             // 2. seed the random
-            let mut random: Random = Random::new(random_seed.as_slice());
+            let mut random: Random = Random::new(&random_seed);
             let random_traits = random.next_int::<u32>();
 
             self.nfts.insert(nft_id as u16, random_traits);

@@ -78,7 +78,7 @@ mod example {
                 self.badge_vault.put(bucket);
 
                 // 2. seed the random
-                let mut random: Random = Random::new(random_seed.as_slice());
+                let mut random: Random = Random::new(&random_seed);
                 let random_traits = random.next_int::<u32>();
 
                 self.nfts.insert(nft_id as u16, random_traits);
