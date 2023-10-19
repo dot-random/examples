@@ -7,8 +7,9 @@ mod example {
     extern_blueprint!(
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         MyRandom as RandomComponent {
-            fn request_random(&self, address: ComponentAddress, method_name: String,
-                on_error: String, key: u32, badge: FungibleBucket) -> u32;
+            fn request_random(&self, address: ComponentAddress, method_name: String, on_error: String,
+                key: u32, badge_opt: Option<FungibleBucket>, expected_fee: u8) -> u32;
+
         }
     );
     const RNG: Global<RandomComponent> = global_component!(
@@ -57,16 +58,21 @@ mod example {
             self.next_id += 1;
             // The address of your Component
             let address = Runtime::global_component().address();
-            // The method on your component to call back
-            let method_name = "do_mint".into();
-            // The method on yor component that will be called if do_mint() panics
-            let on_error = "abort_mint".into();
             // A key that will be sent back to you with the callback
             let key = nft_id.into();
+            // The method on your component to call back
+            let method_name: String = "do_mint".into();
+            // The method on yor component that will be called if do_mint() panics
+            let on_error: String = "abort_mint".into();
+            // The token that you are going to send in `request_random()`. None if you send None there.
             // A token that will be sent back to you with the callback
             // You should check that the token is present before minting
             let badge = self.badge_vault.take(Decimal::ONE);
-            return RNG.request_random(address, method_name, on_error, key, badge.as_fungible());
+            // How much you would expect the callback to cost, cents (e.g. test on Stokenet).
+            // It helps to avoid a sharp increase in royalties during the first few invocations of `request_random()`
+            // but is completely optional.
+            let expected_fee = 6u8; // 6 cents = 1 XRD
+            return RNG.request_random(address, method_name, on_error, key, Some(badge.as_fungible()), expected_fee);
         }
 
         /// Executed by our RandomWatcher off-ledger service (through [RandomComponent]).
@@ -75,7 +81,7 @@ mod example {
             debug!("EXEC:ExampleCaller::do_mint({:?}, {:?}, {:?})\n", nft_id, badge, random_seed);
             if badge.amount() == Decimal::ONE {
                 let bucket = badge.into();
-                self.badge_vault.put(bucket);
+                self.badge_vault.put(bucket); // fails if a different token was sent.
 
                 // 2. seed the random
                 let mut random: Random = Random::new(&random_seed);
@@ -85,7 +91,7 @@ mod example {
             }
         }
 
-        pub fn abort_mint(&mut self, nft_id: u32, badge: FungibleBucket) {
+        pub fn abort_mint(&mut self, _nft_id: u32, _badge: FungibleBucket) {
             // revert what you did in `request_mint()` here
         }
     }

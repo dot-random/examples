@@ -8,9 +8,8 @@ mod example {
         // "package_tdx_2_1pk56nm7yuy3dcjx6awtj72ykx5grte0vukd0j8vl8algxnphwe8yz7",
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         RandomComponent {
-            fn request_random(&self, address: ComponentAddress,
-                method_name: String, on_error: String, key: u32, badge: FungibleBucket) -> u32;
-            fn request_random2(&self, address: ComponentAddress, method_name: String, on_error: String, key: u32) -> u32;
+            fn request_random(&self, address: ComponentAddress, method_name: String, on_error: String,
+                key: u32, badge_opt: Option<FungibleBucket>, expected_fee: u8) -> u32;
         }
     );
     const RNG: Global<RandomComponent> = global_component!(
@@ -74,7 +73,14 @@ mod example {
             let on_error = "abort_mint".into();
             // A key that will be sent back to you with the callback
             let key = nft_id.into();
-            return RNG.request_random2(address, method_name, on_error, key);
+            // The auth badge. Will be returned fully with the callback.
+            // We pick None and expect get a proof of `BADGE_RESOURCE` instead.
+            let badge_opt: Option<FungibleBucket> = None;
+            // How much you would expect the callback to cost, cents (e.g. test on Stokenet).
+            // It helps to avoid a sharp increase in royalties during the first few invocations of `request_random()`
+            // but is completely optional.
+            let expected_fee = 0u8;
+            return RNG.request_random(address, method_name, on_error, key, badge_opt, expected_fee);
         }
 
         /// Executed by our RandomWatcher off-ledger service (through [RandomComponent]).
@@ -88,7 +94,7 @@ mod example {
             self.nfts.insert(nft_id as u16, random_traits);
         }
 
-        pub fn abort_mint(&mut self, nft_id: u32) {
+        pub fn abort_mint(&mut self, _nft_id: u32) {
             // revert what you did in `request_mint()` here
         }
     }

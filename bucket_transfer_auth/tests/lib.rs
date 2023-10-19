@@ -2,7 +2,7 @@ use std::env;
 
 use scrypto_unit::*;
 use transaction::prelude::*;
-use dot_random_test_utils::{random_component_deploy, random_component_process};
+use dot_random_test_utils::{deploy_random_component};
 
 
 #[test]
@@ -14,7 +14,7 @@ fn test_request_mint_with_bucket() {
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let (_, rc_component, _) = random_component_deploy(&mut test_runner, "6945f27");
+    let random_util = deploy_random_component(&mut test_runner, "d23b065");
 
     // Deploy ExampleCaller
     let package_address2 = test_runner.publish_retain_blueprints(
@@ -50,8 +50,7 @@ fn test_request_mint_with_bucket() {
     out[1].expect_return_value(&1u32);
 
     // 2. Watcher calls RandomComponent.process() to do the actual mint - should mint an NFT
-    let random_bytes: Vec<u8> = vec![1, 2, 3, 4, 5];
-    random_component_process(&mut test_runner, rc_component, random_bytes);
+    random_util.process_num(&mut test_runner, 1);
 
     // Assert
 }
