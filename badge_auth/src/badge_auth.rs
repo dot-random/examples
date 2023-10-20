@@ -84,18 +84,20 @@ mod example {
         }
 
         /// Executed by our RandomWatcher off-ledger service (through [RandomComponent]).
-        /// "nft_id" here is whatever was sent to RNG.request_random() above.
+        /// "nft_id" here is whatever `key` was sent to RNG.request_random() above.
         pub fn do_mint(&mut self, nft_id: u32, random_seed: Vec<u8>) {
             debug!("EXEC:ExampleCallerBadgeAuth::do_mint({:?}, {:?})\n", nft_id, random_seed);
-            // 2. seed the random
+            // 1. seed the random
             let mut random: Random = Random::new(&random_seed);
-            let random_traits = random.next_int::<u32>();
 
+            // 2. the actual mint
+            let random_traits = random.next_int::<u32>();
             self.nfts.insert(nft_id as u16, random_traits);
         }
 
         pub fn abort_mint(&mut self, _nft_id: u32) {
-            // revert what you did in `request_mint()` here
+            // revert what you did in `request_mint()`
+            // ...
         }
     }
 }

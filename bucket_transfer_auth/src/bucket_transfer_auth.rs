@@ -76,23 +76,31 @@ mod example {
         }
 
         /// Executed by our RandomWatcher off-ledger service (through [RandomComponent]).
-        /// "nft_id" here is whatever was sent to RNG.request_random() above.
+        /// "nft_id" here is whatever `key` was sent to RNG.request_random() above.
         pub fn do_mint(&mut self, nft_id: u32, badge: FungibleBucket, random_seed: Vec<u8>) {
             debug!("EXEC:ExampleCaller::do_mint({:?}, {:?}, {:?})\n", nft_id, badge, random_seed);
+            // 1. check the auth
             if badge.amount() == Decimal::ONE {
                 let bucket = badge.into();
                 self.badge_vault.put(bucket); // fails if a different token was sent.
 
                 // 2. seed the random
                 let mut random: Random = Random::new(&random_seed);
-                let random_traits = random.next_int::<u32>();
 
+                // 3. the actual mint
+                let random_traits = random.next_int::<u32>();
                 self.nfts.insert(nft_id as u16, random_traits);
             }
         }
 
-        pub fn abort_mint(&mut self, _nft_id: u32, _badge: FungibleBucket) {
-            // revert what you did in `request_mint()` here
+        pub fn abort_mint(&mut self, _nft_id: u32, badge: FungibleBucket) {
+            if badge.amount() == Decimal::ONE {
+                let bucket = badge.into();
+                self.badge_vault.put(bucket);
+
+                // revert what you did in `request_mint()`
+                // ...
+            }
         }
     }
 }

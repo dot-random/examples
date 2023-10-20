@@ -4,6 +4,7 @@ use scrypto_unit::*;
 use transaction::prelude::*;
 
 use dot_random_test_utils::{deploy_random_component};
+use radix_engine::transaction::CommitResult;
 
 #[test]
 fn test_request_mint_badge_auth() {
@@ -14,7 +15,7 @@ fn test_request_mint_badge_auth() {
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let test_util = deploy_random_component(&mut test_runner, "85d338a");
+    let mut random_env = deploy_random_component(&mut test_runner, "d39706d");
 
     // Deploy ExampleCaller
     let package_address2 = test_runner.publish_retain_blueprints(
@@ -34,6 +35,10 @@ fn test_request_mint_badge_auth() {
 
     let result = receipt.expect_commit_success();
     let example_component = result.new_component_addresses()[0];
+    let kv_store = get_kv_store(result);
+
+    let minted_nft: Option<u32> = test_runner.get_kv_store_entry(Own(*kv_store), &1u16);
+    assert_eq!(None, minted_nft);
 
     // Act
     // 1. Request mint - should return callback id: 1
@@ -49,8 +54,21 @@ fn test_request_mint_badge_auth() {
     let out = result.outcome.expect_success();
     out[1].expect_return_value(&1u32);
 
-    // 2. Watcher calls RandomComponent.process() to do the actual mint - should mint an NFT
-    test_util.process_num(&mut test_runner, 100);
+    // 2.Simulate a TX that calls RandomComponent.execute() to do the actual mint - should mint an NFT
+    random_env.execute_with_seed(&mut test_runner, vec!(0,0,0,1));
 
     // Assert
+    let minted_nft: Option<u32> = test_runner.get_kv_store_entry(Own(*kv_store), &1u16);
+    assert_eq!(Some(1), minted_nft);
+}
+
+fn get_kv_store(result: &CommitResult) -> &NodeId {
+    // Our KVS is last created.
+    let mut last: &NodeId = &NodeId([1u8; 30]);
+    for (node_id, _) in &result.state_updates.by_node {
+        if node_id.is_internal_kv_store() {
+            last = node_id;
+        }
+    }
+    return last;
 }
