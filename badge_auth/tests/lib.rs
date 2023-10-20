@@ -14,7 +14,7 @@ fn test_request_mint_badge_auth() {
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let test_util = deploy_random_component(&mut test_runner, "d23b065");
+    let test_util = deploy_random_component(&mut test_runner, "85d338a");
 
     // Deploy ExampleCaller
     let package_address2 = test_runner.publish_retain_blueprints(
