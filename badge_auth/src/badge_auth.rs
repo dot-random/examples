@@ -5,7 +5,7 @@ use random::Random;
 #[types(u16, u32)]
 mod example {
     extern_blueprint!(
-        // "package_tdx_2_1pk56nm7yuy3dcjx6awtj72ykx5grte0vukd0j8vl8algxnphwe8yz7",
+        // "package_tdx_2_1p527rqesssgtadvr23elxrnrt6rw2jnfa5ke8n85ykcxmvjt06cvv6",
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         RandomComponent {
             fn request_random(&self, address: ComponentAddress, method_name: String, on_error: String,
@@ -14,11 +14,11 @@ mod example {
     );
     const RNG: Global<RandomComponent> = global_component!(
         RandomComponent,
-        // "component_tdx_2_1czgsfkdazhyhrs5238wh5phfk80ky8xzqvjwf7cpxwu76efl9jehcx"
+        // "component_tdx_2_1czzxynn4m4snhattvdf6knlyfs3ss70yufj975uh2mdhp8jes938sd"
         "component_sim1cqqqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnf7v0gx"
     );
     const BADGE_RESOURCE: ResourceManager = resource_manager!(
-        // "resource_tdx_2_1t4hgu0a4tav5ydekqz3zd47r6w8kykcg9u4gsmrwnh5k8ef8uh625f"
+        // "resource_tdx_2_1t59tdtsvv7sc0nej3z585w5nmqpq3z5cms7xdwvkyqaqreu9j3rvyu"
         "resource_sim1t5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycn38dnjs"
     );
 
@@ -79,7 +79,7 @@ mod example {
             // How much you would expect the callback to cost, cents (e.g. test on Stokenet).
             // It helps to avoid a sharp increase in royalties during the first few invocations of `request_random()`
             // but is completely optional.
-            let expected_fee = 0u8;
+            let expected_fee = 6u8;
             return RNG.request_random(address, method_name, on_error, key, badge_opt, expected_fee);
         }
 

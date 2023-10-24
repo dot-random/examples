@@ -5,6 +5,7 @@ use random::Random;
 #[types(u16, u32)]
 mod example {
     extern_blueprint!(
+        // "package_tdx_2_1p527rqesssgtadvr23elxrnrt6rw2jnfa5ke8n85ykcxmvjt06cvv6",
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
         MyRandom as RandomComponent {
             fn request_random(&self, address: ComponentAddress, method_name: String, on_error: String,
@@ -14,6 +15,7 @@ mod example {
     );
     const RNG: Global<RandomComponent> = global_component!(
         RandomComponent,
+        // "component_tdx_2_1czzxynn4m4snhattvdf6knlyfs3ss70yufj975uh2mdhp8jes938sd"
         "component_sim1cqqqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnf7v0gx"
     );
 

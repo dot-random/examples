@@ -7,12 +7,12 @@ version = "0.1.0"
 [dependencies]
 sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.1" }
 scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.1" }
-random = { git = "https://github.com/dot-random/dot-random", rev = "d39706d", package = "random" }
+random = { git = "https://github.com/dot-random/dot-random", rev = "59ae807", package = "random" }
 
 
 [dev-dependencies]
 bucket_transfer_auth = { path = ".", features = ["test"] }
-dot-random-test-utils = { git = "https://github.com/dot-random/dot-random", rev = "d39706d", package = "test-utils" }
+dot-random-test-utils = { git = "https://github.com/dot-random/dot-random", rev = "59ae807", package = "test-utils" }
 transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.1" }
 radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.1" }
 scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.0.1" }
