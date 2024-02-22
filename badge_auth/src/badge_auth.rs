@@ -1,6 +1,9 @@
 use scrypto::prelude::*;
 use random::Random;
 
+mod random_provider;
+use crate::random_provider::get_random;
+
 #[blueprint]
 #[types(u16, u32)]
 mod example {
@@ -88,7 +91,7 @@ mod example {
         pub fn do_mint(&mut self, nft_id: u32, random_seed: Vec<u8>) {
             debug!("EXEC:ExampleCallerBadgeAuth::do_mint({:?}, {:?})\n", nft_id, random_seed);
             // 1. seed the random
-            let mut random: Random = Random::new(&random_seed);
+            let mut random: Random = get_random(&random_seed);
 
             // 2. the actual mint
             let random_traits = random.next_int::<u32>();
