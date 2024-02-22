@@ -1,5 +1,8 @@
+
 use scrypto::prelude::*;
 use random::Random;
+
+mod royalties;
 
 #[blueprint]
 #[types(u16, u32)]
