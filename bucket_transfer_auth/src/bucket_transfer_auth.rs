@@ -7,7 +7,7 @@ mod example {
     extern_blueprint!(
         // "package_tdx_2_1p527rqesssgtadvr23elxrnrt6rw2jnfa5ke8n85ykcxmvjt06cvv6",
         "package_sim1p5qqqqqqqyqszqgqqqqqqqgpqyqsqqqqxumnwqgqqqqqqycnnzj0hj",
-        MyRandom as RandomComponent {
+        RandomComponent {
             fn request_random(&self, address: ComponentAddress, method_name: String, on_error: String,
                 key: u32, badge_opt: Option<FungibleBucket>, expected_fee: u8) -> u32;
 
@@ -66,7 +66,6 @@ mod example {
             let method_name: String = "do_mint".into();
             // The method on yor component that will be called if do_mint() panics
             let on_error: String = "abort_mint".into();
-            // The token that you are going to send in `request_random()`. None if you send None there.
             // A token that will be sent back to you with the callback
             // You should check that the token is present before minting
             let badge = self.badge_vault.take(Decimal::ONE);

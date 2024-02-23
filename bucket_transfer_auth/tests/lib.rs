@@ -15,7 +15,7 @@ fn test_request_mint_with_bucket() {
     let mut test_runner = TestRunnerBuilder::new().build();
 
     // Deploy RandomComponent
-    let mut random_env = deploy_random_component(&mut test_runner, "59ae807");
+    let mut random_env = deploy_random_component(&mut test_runner, "55cf37d");
 
     // Deploy ExampleCaller
     let package_address2 = test_runner.publish_retain_blueprints(
