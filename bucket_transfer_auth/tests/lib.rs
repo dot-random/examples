@@ -1,7 +1,6 @@
 use std::env;
 
-use scrypto_unit::*;
-use transaction::prelude::*;
+use scrypto_test::prelude::*;
 use dot_random_test_utils::{deploy_random_component};
 use radix_engine::transaction::CommitResult;
 
@@ -12,7 +11,7 @@ fn test_request_mint_with_bucket() {
     let root_dir = env::current_dir().ok().unwrap().ends_with("dot-random-examples");
     let dir_example = if root_dir { "./bucket_transfer_auth" } else { "../bucket_transfer_auth" };
     // Arrange
-    let mut test_runner = TestRunnerBuilder::new().build();
+    let mut test_runner = LedgerSimulatorBuilder::new().build();
 
     // Deploy RandomComponent
     let mut random_env = deploy_random_component(&mut test_runner);
@@ -39,8 +38,9 @@ fn test_request_mint_with_bucket() {
 
     // Act
     // 1. Request mint - should return callback id: 1
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = test_runner.execute_manifest(
         ManifestBuilder::new()
+            .lock_fee_from_faucet()
             .call_method(
                 example_component,
                 "request_mint",
