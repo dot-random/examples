@@ -5,17 +5,17 @@ version = "0.1.0"
 
 
 [dependencies]
-sbor = { version = "1.2.0" }
-scrypto = { version = "1.2.0" }
-random = { git = "https://github.com/dot-random/dot-random", tag = "v0.1-scrypto-1.2.0", package = "random" }
+sbor = { version = "1.3.0" }
+scrypto = { version = "1.3.0" }
+random = { git = "https://github.com/dot-random/dot-random", tag = "v0.1-scrypto-1.3.0", package = "random" }
 
 
 [dev-dependencies]
 badge_auth = { path = ".", features = ["test"] }
-dot-random-test-utils = { git = "https://github.com/dot-random/dot-random", tag = "v0.1-scrypto-1.2.0", package = "test-utils" }
-radix-transactions = { version = "1.2.0" }
-radix-engine = { version = "1.2.0" }
-scrypto-test = { version = "1.2.0" }
+dot-random-test-utils = { git = "https://github.com/dot-random/dot-random", tag = "v0.1-scrypto-1.3.0", package = "test-utils" }
+radix-transactions = { version = "1.3.0" }
+radix-engine = { version = "1.3.0" }
+scrypto-test = { version = "1.3.0" }
 
 [features]
 default = []
